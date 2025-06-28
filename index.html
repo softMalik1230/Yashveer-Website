@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Yashveer Malik | Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --main: #ff4e50;
+      --sub: #f9d423;
+      --bg-light: #fdfcfa;
+      --text-light: #222;
+      --bg-dark: #1b1b1b;
+      --text-dark: #eee;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-light);
+      transition: background 0.4s, color 0.4s;
+    }
+    body.dark {
+      background: var(--bg-dark);
+      color: var(--text-dark);
+    }
+    header {
+      text-align: center;
+      padding: 60px 20px;
+      background: linear-gradient(135deg, var(--main), var(--sub));
+      color: white;
+      position: relative;
+    }
+    header h1 {
+      font-size: 2.5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+    }
+    .toggle-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: white;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 20px;
+      width: 20px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #4e54c8;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    .toggle-label {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    nav {
+      background: white;
+      text-align: center;
+      padding: 15px 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    body.dark nav {
+      background: #2a2a2a;
+    }
+    nav a {
+      margin: 0 20px;
+      text-decoration: none;
+      color: var(--main);
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: var(--sub);
+    }
+    section {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 30px;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      transition: 0.3s;
+    }
+    body.dark section {
+      background: #2b2b2b;
+    }
+    h2 {
+      color: var(--main);
+      border-left: 5px solid var(--sub);
+      padding-left: 12px;
+      margin-bottom: 20px;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    ul li {
+      margin-bottom: 10px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      background: linear-gradient(to right, var(--main), var(--sub));
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 30px;
+      margin-top: 20px;
+      transition: background 0.3s;
+    }
+    .btn:hover {
+      background: linear-gradient(to left, var(--main), var(--sub));
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      margin-top: 20px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .gallery img:hover {
+      transform: scale(1.05);
+    }
+    .gallery p {
+      text-align: center;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+    .contact-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+    .contact-card {
+      background: #fff;
+      padding: 25px;
+      width: 260px;
+      border-radius: 12px;
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    body.dark .contact-card {
+      background: #333;
+    }
+    .contact-card:hover {
+      transform: translateY(-5px);
+    }
+    .contact-card img {
+      margin-bottom: 10px;
+    }
+    .contact-card h4 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+    .contact-card p a {
+      color: var(--main);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .contact-card p a:hover {
+      color: var(--sub);
+    }
+    #contact .btn {
+      display: block;
+      text-align: center;
+      margin: 20px auto 0 auto;
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      nav a {
+        margin: 0 10px;
+        font-size: 14px;
+      }
+      .contact-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="toggle-container">
+    <label class="switch">
+      <input type="checkbox" id="toggle-switch" onclick="toggleDarkMode()">
+      <span class="slider round"></span>
+    </label>
+    <span class="toggle-label">Dark Mode</span>
+  </div>
+  <h1>Yashveer Malik</h1>
+  <p>Creative Freelancer | Typing | Design | Editing</p>
+</header>
+
+<!-- Navigation -->
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- About -->
+<section id="about" data-aos="fade-up">
+  <h2>About Me</h2>
+  <p>I am a passionate freelancer offering services in fast typing, Excel reports, short video editing, and creative poster design. I focus on quality and client satisfaction.</p>
+</section>
+
+<!-- Skills -->
+<section id="skills" data-aos="fade-up">
+  <h2>Skills</h2>
+  <ul>
+    <li>✔️ Accurate Typing (60+ WPM)</li>
+    <li>✔️ Excel Formulas & Dashboards</li>
+    <li>✔️ Poster & Thumbnail Design</li>
+    <li>✔️ Video Editing for Shorts/Reels</li>
+    <li>✔️ Resume & Document Formatting</li>
+    <li>✔️ PDF to Word/Excel Conversion</li>
+  </ul>
+</section>
+
+<!-- Work -->
+<section id="work" data-aos="zoom-in">
+  <h2>My Work</h2>
+  <p>Here are a few samples of my recent projects:</p>
+  <div class="gallery">
+    <div>
+      <img src="laptop poster.jpg" alt="Poster 1" />
+      <p>Cyber Monday Poster</p>
+    </div>
+    <div>
+      <img src="Shoes Concept.jpg" alt="Shoe Ad" />
+      <p>Shoe Ad Concept Design</p>
+    </div>
+    <div>
+      <img src="Typing Certificate.jpg" alt="Typing Certificate" />
+      <p>Typing Speed Certificate</p>
+    </div>
+    <div>
+      <img src="Youtube Thumbnail.jpg" alt="Thumbnail" />
+      <p>Fitness YouTube Thumbnail</p>
+    </div>
+  </div>
+  <a href="https://drive.google.com/drive/folders/1x-wy_d6Ersi9gpNjgcKWcKiUsSSBcGr4?usp=sharing" target="_blank" class="btn" style="display: block; text-align: center; margin: 30px auto 0 auto; width: fit-content;">📁 View  Work&nbsp; on Google Drive</a>
+</section>
+
+<!-- Contact -->
+<section id="contact" data-aos="fade-up">
+  <h2>Contact</h2>
+  <div class="contact-container">
+    <div class="contact-card">
+      <img src="https://img.icons8.com/fluency/48/gmail.png" alt="Email">
+      <h4>Email</h4>
+      <p><a href="mailto:Softly080@gmail.com">Softly080@gmail.com</a></p>
+    </div>
+    <div class="contact-card">
+      <img src="https://img.icons8.com/fluency/48/whatsapp.png" alt="WhatsApp">
+      <h4>WhatsApp</h4>
+      <p><a href="https://wa.me/919034321587">+91 9034321587</a></p>
+    </div>
+    <div class="contact-card">
+      <img src="https://img.icons8.com/fluency/48/marker.png" alt="Location">
+      <h4>Location</h4>
+      <p>India</p>
+    </div>
+  </div>
+  <a href="mailto:softly080@gmail.com" class="btn">📨 Let's Work Together!</a>
+</section>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+  function toggleDarkMode() {
+    document.body.classList.toggle("dark");
+  }
+</script>
+
+</body>
+</html>
